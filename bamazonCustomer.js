@@ -14,6 +14,8 @@ connection.connect(function(err){
 	shopMode();
 });
 
+
+
 function shopMode(){
 	inquirer.prompt(
 	[
@@ -29,33 +31,60 @@ function shopMode(){
 	}
 	])
 	.then(function(answer){
+		var itemRequest = answer.item;
 		connection.query(
 			"UPDATE products SET ? WHERE ?",
 			[{
 				requested: answer.amount
 			},
 			{
-				item_id: answer.item
+				item_id: itemRequest
 			}],
 			function(err, res){
 				if (err) throw err;
 			});
 		connection.query(
-			"SELECT stock_quantity, requested FROM products WHERE ?",
+			"SELECT stock_quantity, requested, price FROM products WHERE ?",
 			{
-				item_id: answer.item
+				item_id: itemRequest
 			},
 			function(err, res) {
+				var inStock = res[0].stock_quantity;
+				request = res[0].requested;
+				price = res[0].price;
+				newStock = inStock - request;
 				if (err) {
 					console.log("Error message is " + err)
-				} else if (res[0].stock_quantity < res[0].requested)
+				} else if (inStock < request)
 				{
-					console.log("Insufficient amount!")
+					console.log("Insufficient amount!");
+					return shopMode();
 				} else {
-					console.log(`There are ${res[0].stock_quantity} left`);
+					var purchase = request * price;
+					console.log(`There are ${inStock} left. \n Your total is ${purchase} USD`);
+					
 				}
 			});
+		updateQuantity();
 	});
+};
+
+
+function updateQuantity(){
+	connection.query(
+		"UPDATE products SET ? WHERE ?",
+		[
+		{
+			stock_quantity: newStock
+		},
+		{
+			item_id: itemRequest
+		}
+		]
+		),function(err, res){
+		if (err) throw err;
+		console.log(`New quantity is ${res[0].stock_quantity}`)
+	};
 };
 
 // function amount(){
