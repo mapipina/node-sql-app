@@ -22,7 +22,7 @@ function shopMode(){
 	[
 	{
 		type: "input",
-		message: "Type ID of item you want to purchase",
+		message: "Type ID of item you want to purchase \n",
 		name: "item"
 	},
 	{
@@ -63,10 +63,9 @@ function shopMode(){
 				} else {
 					var purchase = request * price;
 					console.log(`There are ${inStock} left. \n Your total is ${purchase} USD`);
-					
-				}
-			});
-		updateQuantity();
+					// updateQuantity();
+				};
+			});	
 	});
 	connection.end();
 };
@@ -76,7 +75,7 @@ function displayAll () {
 		"SELECT item_id, product_name, price FROM products",
 		function(err, res) {
 			for (i in res) {
-				console.log(`\n ${res[i].product_name} with ID of ${res[i].item_id} is available for ${res[i].price} USD \n`)
+				console.log(`${res[i].product_name} with ID of ${res[i].item_id} is available for ${res[i].price} USD \n`)
 			};
 	});
 };
@@ -93,7 +92,7 @@ function updateQuantity(){
 		}
 		]
 		,function(err, res){
-		if (err) throw err;
+		// if (err) throw err;
 		console.log(`New quantity is ${res[0].stock_quantity}`)
 	});
 };
