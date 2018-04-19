@@ -10,7 +10,7 @@ let connection = mysql.createConnection({
 
 connection.connect(function(err){
 	if (err) throw err;
-	console.log("connected as id " + connection.threadId);
+	// console.log("connected as id " + connection.threadId);
 	shopMode();
 });
 
@@ -63,11 +63,10 @@ function shopMode(){
 				} else {
 					var purchase = request * price;
 					console.log(`There are ${inStock} left. \n Your total is ${purchase} USD`);
-					// updateQuantity();
+					updateQuantity(newStock, answer.item);
 				};
 			});	
 	});
-	connection.end();
 };
 
 function displayAll () {
@@ -88,7 +87,7 @@ function updateQuantity(){
 			stock_quantity: newStock
 		},
 		{
-			item_id: itemRequest
+			item_id: answer.item
 		}
 		]
 		,function(err, res){
@@ -96,32 +95,3 @@ function updateQuantity(){
 		console.log(`New quantity is ${res[0].stock_quantity}`)
 	});
 };
-
-// function amount(){
-// 	connection.query(
-// 		"UPDATE products SET ? WHERE ?",
-// 		[{
-// 			requested: answer.amount
-// 		},
-// 		{
-// 			item_id: answer.item
-// 		}],
-// 		function(err, res){
-// 			if (err) throw err;
-// 		});
-// };
-
-// function readDB () {
-// 	connection.query(
-// 		"SELECT stock_quantity FROM products WHERE ?",
-// 		{
-// 			item_id: answer.item
-// 		},
-// 		function(err, res) {
-// 			if (err) throw err;
-// 			console.log(`There are ${res[0].stock_quantity} left`)
-// 		});
-// };
-
-
-
