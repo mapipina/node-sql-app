@@ -17,6 +17,7 @@ connection.connect(function(err){
 
 
 function shopMode(){
+	displayAll();
 	inquirer.prompt(
 	[
 	{
@@ -67,8 +68,18 @@ function shopMode(){
 			});
 		updateQuantity();
 	});
+	connection.end();
 };
 
+function displayAll () {
+	connection.query(
+		"SELECT item_id, product_name, price FROM products",
+		function(err, res) {
+			for (i in res) {
+				console.log(`\n ${res[i].product_name} with ID of ${res[i].item_id} is available for ${res[i].price} USD \n`)
+			};
+	});
+};
 
 function updateQuantity(){
 	connection.query(
@@ -81,10 +92,10 @@ function updateQuantity(){
 			item_id: itemRequest
 		}
 		]
-		),function(err, res){
+		,function(err, res){
 		if (err) throw err;
 		console.log(`New quantity is ${res[0].stock_quantity}`)
-	};
+	});
 };
 
 // function amount(){
