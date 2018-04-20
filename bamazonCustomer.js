@@ -14,8 +14,6 @@ connection.connect(function(err){
 	shopMode();
 });
 
-
-
 function shopMode(){
 	displayAll();
 	inquirer.prompt(
@@ -63,9 +61,17 @@ function shopMode(){
 				} else {
 					var purchase = request * price;
 					console.log(`There are ${inStock} left. \n Your total is ${purchase} USD`);
-					updateQuantity(newStock, answer.item);
 				};
-			});	
+			});
+		connection.query(	
+			"UPDATE products SET stock_quantity=stock_quantity-requested WHERE ?",
+			{
+				item_id: itemRequest
+			}
+			,function(err, res){
+			// if (err) throw err;
+			// console.log(`New quantity is ${res[0].stock_quantity}`)
+		});	
 	});
 };
 

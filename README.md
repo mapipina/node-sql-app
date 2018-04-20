@@ -5,7 +5,7 @@ In this activity, you'll be creating an Amazon-like storefront with the MySQL sk
 1. A MySQL Database called `bamazon` holds my fictional store's inventory. This inventory is stored in a table titled `products`. The table contains Item ID, Product Name, Department, Price, and Quantity. If a person wants to purchase a product from my store, they have to remember the item_id for the product they want. There's a hidden field in the database that shows the last requested amount. 
 ![Database Snapshot](./requestedDB.png)
 
-2. Through NodeJS, a customer will run the program, `bamazonCustomer.js`, and will be presented with the store inventory.
+2. Through Node.js, a customer will run the program, `bamazonCustomer.js`, and will be presented with the store inventory.
 ![Product array](./list-of-products.PNG)
 
 3. The inquirer NPM package will initiate and will prompt the customer to insert the item_id of the product they would like to purchase and how much of that product.
@@ -15,3 +15,5 @@ In this activity, you'll be creating an Amazon-like storefront with the MySQL sk
 ![Insufficient Amount](./screenshot-1.PNG)
 
 5. The database will then be updated to reflect the remaining quantity of that item.
+![Another receipt](./receipt.PNG)
+![Updated db](./update.PNG)
