@@ -6,8 +6,7 @@ In this activity, you'll be creating an Amazon-like storefront with the MySQL sk
 ![Database Snapshot](./requestedDB.png)
 
 2. Through NodeJS, a customer will run the program, `bamazonCustomer.js`, and will be presented with the store inventory.
-
-
+![Product array](./list-of-products.PNG)
 
 3. The inquirer NPM package will initiate and will prompt the customer to insert the item_id of the product they would like to purchase and how much of that product.
 
