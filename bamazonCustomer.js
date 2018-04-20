@@ -84,20 +84,3 @@ function displayAll () {
 			};
 	});
 };
-
-function updateQuantity(){
-	connection.query(
-		"UPDATE products SET ? WHERE ?",
-		[
-		{
-			stock_quantity: newStock
-		},
-		{
-			item_id: answer.item
-		}
-		]
-		,function(err, res){
-		// if (err) throw err;
-		console.log(`New quantity is ${res[0].stock_quantity}`)
-	});
-};
