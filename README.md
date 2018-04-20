@@ -16,4 +16,4 @@ In this activity, you'll be creating an Amazon-like storefront with the MySQL sk
 
 5. The database will then be updated to reflect the remaining quantity of that item.
 ![Another receipt](./receipt.PNG)
-![Updated db](./update.PNG)
+![Updated db](./update.png)
